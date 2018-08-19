@@ -283,6 +283,16 @@ def ha_relation_changed():
             status_set('blocked', msg)
             raise ValueError(msg)
 
+    if True in [ra.startswith('ocf:percona:percona_ra')
+                for ra in resources.itervalues()]:
+        percona_ra_dst = '/usr/lib/ocf/resource.d/percona/'
+        if not os.path.exists(percona_ra_dst):
+            os.makedirs(percona_ra_dst)
+
+        percona_ra_src = os.path.join(os.environ["CHARM_DIR"], "files",
+                                   "pxc", "percona")
+        shutil.copy2(percona_ra_src,
+                     os.path.join(percona_ra_dst,'percona_ra'))
     # NOTE: this should be removed in 15.04 cycle as corosync
     # configuration should be set directly on subordinate
     configure_corosync()
