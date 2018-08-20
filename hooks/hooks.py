@@ -290,9 +290,9 @@ def ha_relation_changed():
             os.makedirs(percona_ra_dst)
 
         percona_ra_src = os.path.join(os.environ["CHARM_DIR"], "files",
-                                   "pxc", "percona")
+                                      "pxc", "percona")
         shutil.copy2(percona_ra_src,
-                     os.path.join(percona_ra_dst,'percona_ra'))
+                     os.path.join(percona_ra_dst, 'percona_ra'))
     # NOTE: this should be removed in 15.04 cycle as corosync
     # configuration should be set directly on subordinate
     configure_corosync()
